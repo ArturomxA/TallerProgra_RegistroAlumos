@@ -5,10 +5,10 @@ using namespace std ;
 
 int main(){
      int clave , opcion ,Bclave;
-     char nombre[100];
+     char nombre[30] ,Nnombre[30];
      ifstream Leer;
      ofstream Guardar;
-     ofstream temporal;
+     ofstream Temp;
      Guardar.open("Fichero.txt" ,ios::app);
      while(true){
 
@@ -69,11 +69,11 @@ int main(){
 				cout<<"Clave no encontrada"<<endl;
 			}/*segundo if fuera del while*/
 		Leer.close();
-		
+		break;
 			   } /*Cierre del case 3*/
-			   case 4:{
+			  case 4:{
           	 Leer.open("Fichero.txt");
-            temporal.open("Temporal.txt");
+          	 Temp.open("Temp.txt");
           	 Leer>>nombre;
           	 bool encontrado=false;
           	 cout<<"Ingrese clave a eliminar"<<endl;
@@ -86,12 +86,13 @@ int main(){
           	 		cout<<"Nombre..."<<nombre<<endl;
           	 		cout<<"Clave..."<<clave<<endl;
           	 		cout<<endl;
-          	 		cout<<"Alumno elimnado"<<endl;
+          	 		cout<<"Eliminado"<<endl;
+          	 		
           	 		
 				   }/*Ciere del condicional*/
 				   else{
-				   	Guardar<<nombre<<" "<<clave<<endl;
-				   }/*Cierre del else*/
+				   	Temp<<nombre<<" "<<clave<<endl;
+				   }
 				   Leer>>nombre;
 			}/*Cierre while para terminar de leer-econtrar*/
 			if(encontrado==false)
@@ -99,17 +100,51 @@ int main(){
 				cout<<"Clave no encontrada"<<endl;
 			}/*segundo if fuera del while*/
 		Leer.close();
-		temporal.close();
+		Temp.close();
 		remove("Fichero.txt");
-		rename("Temp.txt" , "Fichero.txt");
-		
+		rename("Temp.txt", "Fichero.txt");
+		break;
 			   } /*Cierre del case 4*/
-			
+			   case 5:{
+          	 Leer.open("Fichero.txt");
+          	 Temp.open("Temp.txt");
+          	 Leer>>nombre;
+          	 bool encontrado=false;
+          	 cout<<"Ingrese clave a modificar"<<endl;
+          	 cin>>Bclave;
+          	 while(!Leer.eof()){
+          	 	Leer>>clave;
+          	 	if(clave==Bclave)
+          	 	{
+          	 		encontrado=true;
+          	 		cout<<"Nombre..."<<nombre<<endl;
+          	 		cout<<"Clave..."<<clave<<endl;
+          	 		cout<<endl;
+          	 		cout<<"Ingrese nuevo nombre:"<<endl;
+          	 		cin>>Nnombre;
+          	 		Temp<<Nnombre<<" "<<clave<<endl;
+          	 		
+				   }/*Ciere del condicional*/
+				   else{
+				   	Temp<<nombre<<" "<<clave<<endl;
+				   }
+				   Leer>>nombre;
+			}/*Cierre while para terminar de leer-econtrar*/
+			if(encontrado==false)
+			{
+				cout<<"Clave no encontrada"<<endl;
+			}/*segundo if fuera del while*/
+		Leer.close();
+		Temp.close();
+		remove("Fichero.txt");
+		rename("Temp.txt", "Fichero.txt");
+		break;
+			   } /*Cierre del case 5*/
 		 
          }/*Cierre del switch*/
      
      }/*Cierre del ciclo while*/
      
-	 }
+}
 
 
